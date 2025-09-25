@@ -31,6 +31,9 @@ fun DollarScreen(viewModelDollar: DollarViewModel = koinViewModel()) {
                 Text(stateValue.data.USDT!!)
                 Text("Cambio usdc: ")
                 Text(stateValue.data.USDC!!)
+
+                Text("Ultima actualizacion")
+                Text((stateValue.data.updatedAt.toString()!!))
             }
         }
     }

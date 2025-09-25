@@ -9,6 +9,9 @@ import com.google.firebase.database.database
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class RealTimeRemoteDataSource {
 
@@ -22,7 +25,10 @@ class RealTimeRemoteDataSource {
 //                val value = p0.getValue(String::class.java)
                 val value = p0.getValue(DollarModel::class.java)
                 if (value != null) {
-                    trySend(value)
+                    val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                    val currentTime = dateFormat.format(Date())
+                    val modelWithTime = value.copy(updatedAt = currentTime.toString())
+                    trySend(modelWithTime)
                 }
             }
         }
