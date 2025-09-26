@@ -15,6 +15,7 @@ import com.calyrsoft.ucbp1.features.github.domain.repository.IGithubRepository
 import com.calyrsoft.ucbp1.features.github.domain.usecase.FindByNickNameUseCase
 import com.calyrsoft.ucbp1.features.github.presentation.GithubViewModel
 import com.calyrsoft.ucbp1.features.movie.data.api.MovieService
+import com.calyrsoft.ucbp1.features.movie.data.database.MovieRoomDatabase
 import com.calyrsoft.ucbp1.features.movie.data.datasource.MovieRemoteDataSource
 import com.calyrsoft.ucbp1.features.movie.data.repository.MovieRepository
 import com.calyrsoft.ucbp1.features.movie.domain.repository.IMoviesRepository
@@ -103,7 +104,9 @@ val appModule = module {
         get<Retrofit>(named(NetworkConstants.RETROFIT_MOVIE)).create(MovieService::class.java)
     }
     single { MovieRemoteDataSource(get(), get(named("apiKey"))) }
-    single<IMoviesRepository> { MovieRepository(get()) }
+    single<IMoviesRepository> { MovieRepository(get(), get()) }
+    single { MovieRoomDatabase.getDatabase(androidContext()) } // singleton Movie DB
+    single { get<MovieRoomDatabase>().movieDao() } // MovieDao
     factory { FetchPopularMoviesUseCase(get()) }
     viewModel{ PopularMoviesViewModel(get()) }
 }
