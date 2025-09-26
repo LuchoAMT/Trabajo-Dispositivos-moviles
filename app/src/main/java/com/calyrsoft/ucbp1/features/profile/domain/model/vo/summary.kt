@@ -7,7 +7,7 @@ value class summary(val value: String) {
             "Value must be not be empty"
         }
 
-        require(value.matches(Regex("^[A-Za-z0-9]+$"))){
+        require(value.matches(Regex("^[A-Za-z0-9. ]+$"))){
             "value must contain only alphanumeric characters A-Z a-z 0-9"
         }
     }

@@ -6,11 +6,11 @@ value class cellphone(val value: String) {
         require(value.isNotEmpty()){
             "Value must be not be empty"
         }
-        require(value.length in 7..11){
-            "Value must have more than 7 characters and less than 11"
+        require(value.length in 7..20){
+            "Value must have more than 7 characters and less than 25"
         }
-        require(value.matches(Regex("^[0-9]+$"))){
-            "value must contain only numbers 0-9"
+        require(value.matches(Regex("^[0-9()+\\-\\u2011 ]+$"))) {
+            "value must contain only numbers 0-9 parenthesis '()' and the plus symbol '+'"
         }
     }
 }
